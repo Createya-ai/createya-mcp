@@ -52,7 +52,7 @@ export async function balance(): Promise<{ credits: number; workspace: string }>
   return r.json();
 }
 
-export async function models(category?: "image" | "video" | "audio" | "text"): Promise<unknown[]> {
+export async function models(category?: "image" | "video"): Promise<unknown[]> {
   const r = await fetch(`${BASE}/models`, { headers: headers() });
   const data = await r.json();
   return category ? data.filter((m: { output_type: string }) => m.output_type === category) : data;
@@ -103,14 +103,16 @@ const results = await Promise.all(
 results.forEach(r => console.log(r.output?.urls?.[0]));
 ```
 
-### Текст / аудио
+### Каталог моделей
 
-Slug'и и параметры — узнай через `models()` или [createya.ai/v1/models](https://api.createya.ai/v1/models):
+Сейчас через REST доступны **image** и **video** модели:
 
 ```typescript
-const textModels = await models("text");
-const audioModels = await models("audio");
+const imageModels = await models("image");
+const videoModels = await models("video");
 ```
+
+Подробные описания — на [createya.ai/knowledge](https://createya.ai/knowledge) или [`docs/models-image.md`](../docs/models-image.md) / [`docs/models-video.md`](../docs/models-video.md).
 
 ### Express endpoint
 ```typescript

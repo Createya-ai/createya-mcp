@@ -173,40 +173,19 @@ claude mcp add createya "https://api.createya.ai/mcp" \
 
 ## 🎨 Каталог моделей
 
-Полный актуальный каталог — на сайте: [**createya.ai/knowledge**](https://createya.ai/knowledge). Ниже — основные.
+Сейчас через MCP/REST доступны **image** и **video** модели. Полный каталог с интерактивными примерами — на сайте: [**createya.ai/knowledge**](https://createya.ai/knowledge).
 
-### 🖼 Изображения
+### 🖼 [Image-модели — полный список →](docs/models-image.md)
 
-| Модель | KB-статья |
-|---|---|
-| **GPT Image 2.0** | [createya.ai/knowledge/gpt-image-2-0](https://createya.ai/knowledge/gpt-image-2-0) |
-| **Nano Banana 2** | [createya.ai/knowledge/nano-banana-2](https://createya.ai/knowledge/nano-banana-2) |
-| **FLUX 2** | [createya.ai/knowledge/flux-2](https://createya.ai/knowledge/flux-2) |
-| **Flux Kontext** | [createya.ai/knowledge/flux-kontext](https://createya.ai/knowledge/flux-kontext) |
-| **Kling Image O3** | [createya.ai/knowledge/kling-image-o3](https://createya.ai/knowledge/kling-image-o3) |
-| **Higgsfield Soul** | [createya.ai/knowledge/higgsfield-soul](https://createya.ai/knowledge/higgsfield-soul) |
-| **Midjourney** | [createya.ai/knowledge/midjourney](https://createya.ai/knowledge/midjourney) |
-| **Grok Imagine** | [createya.ai/knowledge/grok-imagine](https://createya.ai/knowledge/grok-imagine) |
-| **Runway Gen-4** | [createya.ai/knowledge/runway-gen4](https://createya.ai/knowledge/runway-gen4) |
+10 опубликованных моделей: **GPT Image 2.0**, **Nano Banana 2**, **FLUX 2**, **Flux Kontext**, **Kling Image O3**, **Higgsfield Soul**, **Midjourney**, **GPT Image**, **Grok Imagine**, **Runway Gen-4** + ещё 7 моделей через API.
 
-### 🎬 Видео
+### 🎬 [Video-модели — полный список →](docs/models-video.md)
 
-| Модель | KB-статья |
-|---|---|
-| **Sora 2** | [createya.ai/knowledge/sora-2](https://createya.ai/knowledge/sora-2) |
-| **Seedance 2.0** | [createya.ai/knowledge/seedance-2-0](https://createya.ai/knowledge/seedance-2-0) |
-| **Happy Horse 1.0** | [createya.ai/knowledge/happy-horse](https://createya.ai/knowledge/happy-horse) |
-| **Veo 3.1** / **Veo 3.1 Fast** | [createya.ai/knowledge/veo](https://createya.ai/knowledge/veo) |
-| **Kling Video O3** | [createya.ai/knowledge/kling-video-o3](https://createya.ai/knowledge/kling-video-o3) |
-| **Kling Video V3** | [createya.ai/knowledge/kling-video-v3](https://createya.ai/knowledge/kling-video-v3) |
-| **Kling VIDEO 4K** | [createya.ai/knowledge/kling-video-4k](https://createya.ai/knowledge/kling-video-4k) |
-| **Seedance 1.5** | [createya.ai/knowledge/seedance](https://createya.ai/knowledge/seedance) |
+9 опубликованных моделей: **Sora 2**, **Veo 3.1** / **Veo 3.1 Fast**, **Kling Video O3** / **V3** / **4K**, **Seedance 2.0** / **1.5**, **Happy Horse 1.0** + ещё 7 моделей через API.
 
-Поддерживаются режимы: `text-to-video`, `image-to-video`, `video-to-video`, `first-last-frame`.
+Поддерживаемые режимы: `text-to-video`, `image-to-video`, `video-to-video`, `first-last-frame`.
 
-### 🎵 Аудио и 💬 Текст
-
-Музыка, голос, TTS, текстовые модели (GPT, Claude, Gemini, DeepSeek и др.) — все доступны через тот же `run_model` / `POST /v1/run`. Полный актуальный список — `GET https://api.createya.ai/v1/models` или [createya.ai/knowledge](https://createya.ai/knowledge).
+> 💡 Файлы [docs/models-image.md](docs/models-image.md) и [docs/models-video.md](docs/models-video.md) **синхронизируются автоматически раз в неделю** с live-эндпоинтом `GET /v1/models` через [GitHub Action](.github/workflows/sync-models.yml).
 
 ---
 

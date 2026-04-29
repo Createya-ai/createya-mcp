@@ -88,19 +88,21 @@ result = run("kling-video-o3", {
 print(result["output"]["url"])
 ```
 
-### Музыка / TTS / текст
+### Каталог моделей
 
-Аудио и текстовые модели работают через тот же `run`. Slug'и и параметры — через `models()` или [createya.ai/v1/models](https://api.createya.ai/v1/models). Полный каталог опубликованных моделей — на [createya.ai/knowledge](https://createya.ai/knowledge).
+Сейчас через REST доступны **image** и **video** модели. Получить актуальный список:
 
 ```python
-# Получить все доступные text-модели
-text_models = models(category="text")
-for m in text_models:
+# Image-модели
+image_models = models(category="image")
+for m in image_models:
     print(m["id"], m["family"])
 
-# Получить audio-модели
-audio_models = models(category="audio")
+# Video-модели
+video_models = models(category="video")
 ```
+
+Подробное описание каждой модели + примеры — на [createya.ai/knowledge](https://createya.ai/knowledge) или в этом репо: [`docs/models-image.md`](../docs/models-image.md), [`docs/models-video.md`](../docs/models-video.md).
 
 ## Проверка баланса перед дорогой задачей
 

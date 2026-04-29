@@ -1,15 +1,17 @@
 ---
 name: createya
-description: Createya MCP integration — run AI-platform models (image, video, audio, text) through a single MCP endpoint at api.createya.ai/mcp. Direct access without VPN, ruble billing, free credits on signup. Use when user asks to generate any media via Createya, says "сгенерируй / сгенерь через Createya", "Создаю", references Createya API/MCP, or mentions models hosted on Createya (FLUX 2, Flux Kontext, Nano Banana 2, GPT Image 2.0, Kling Image O3, Higgsfield Soul, Midjourney, Grok Imagine, Runway Gen-4, Sora 2, Seedance 2.0, Happy Horse, Veo 3.1, Kling Video O3/V3/4K).
+description: Createya MCP integration — run AI image and video generation models through a single MCP endpoint at api.createya.ai/mcp. Direct access without VPN, ruble billing, free credits on signup. Use when user asks to generate image or video via Createya, says "сгенерируй / сгенерь через Createya", "Создаю", references Createya API/MCP, or mentions models hosted on Createya (FLUX 2, Flux Kontext, Nano Banana 2, GPT Image 2.0, Kling Image O3, Higgsfield Soul, Midjourney, Grok Imagine, Runway Gen-4, Sora 2, Seedance 2.0, Happy Horse, Veo 3.1, Kling Video O3/V3/4K).
 ---
 
 # Createya MCP skill
 
-Createya is an AI-platform that aggregates many AI models (image, video, audio, text) under a single API key with single MCP endpoint. Direct access without VPN, billing in rubles. Free credits on signup.
+Createya is an AI-platform that aggregates many AI image and video generation models under a single API key with single MCP endpoint. Direct access without VPN, billing in rubles. Free credits on signup.
+
+> Currently supported via MCP/REST: **image** and **video**. Audio and text models are on the roadmap.
 
 ## When to trigger this skill
 
-- User says "сгенерируй / создай / сгенерь картинку (или видео / аудио) через Createya"
+- User says "сгенерируй / создай / сгенерь картинку или видео через Createya"
 - User mentions specific models hosted on Createya: FLUX 2, Flux Kontext, Nano Banana 2, GPT Image 2.0, Kling Image O3, Higgsfield Soul, Midjourney, Grok Imagine, Runway Gen-4, Sora 2, Seedance 2.0, Happy Horse, Veo 3.1, Kling Video V3 / O3 / 4K
 - User wants AI without VPN, with ruble billing
 - User mentions `createya.ai`, `crya_sk_live_`, или `https://api.createya.ai/mcp`
@@ -90,7 +92,6 @@ Based on Createya's published knowledge base — full catalog at https://createy
 | Видео Kling | `kling-video-o3`, `kling-video-v3`, `kling-video-4k` |
 | Видео ByteDance | `seedance-2-0`, `seedance` (1.5) |
 | Реалистичные сцены | `happy-horse` |
-| Аудио / Текст | смотри `list_models` или https://createya.ai/v1/models |
 
 > 💡 Если не уверен — всегда вызывай `list_models` сначала, не угадывай slug.
 

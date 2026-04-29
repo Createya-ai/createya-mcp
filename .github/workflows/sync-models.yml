@@ -1,0 +1,96 @@
+name: Sync model catalogs
+
+# Раз в неделю (понедельник 09:00 UTC = 12:00 МСК) тянем актуальный каталог
+# моделей из api.createya.ai/v1/models, генерим docs/models-image.md и
+# docs/models-video.md, и коммитим если что-то изменилось.
+#
+# ⚠️ Требует secret CREATEYA_API_KEY в settings репо (формат crya_sk_live_*).
+# После того как https://api.createya.ai/v1/models станет публичным
+# (см. CRE-337) — secret можно убрать, заменить на анонимный GET.
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'   # каждый понедельник 09:00 UTC
+  workflow_dispatch: {}    # ручной запуск из UI
+
+permissions:
+  contents: write           # для коммита обновлённых docs/models-*.md
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch live model catalog
+        id: fetch
+        env:
+          CREATEYA_API_KEY: ${{ secrets.CREATEYA_API_KEY }}
+        run: |
+          set -euo pipefail
+          # Если ключ не задан — пропускаем без ошибки (например для PR-форков)
+          if [ -z "${CREATEYA_API_KEY:-}" ]; then
+            echo "::notice::CREATEYA_API_KEY не задан — sync пропущен."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          curl -fsSL https://api.createya.ai/v1/models \
+            -H "Authorization: Bearer $CREATEYA_API_KEY" \
+            -o /tmp/models.json
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+
+      - name: Generate model docs
+        if: steps.fetch.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          DATE=$(date +%Y-%m-%d)
+
+          # Image models
+          {
+            echo "# 🖼 Image-модели Createya"
+            echo ""
+            echo "> Этот файл синхронизируется автоматически раз в неделю с [createya.ai/v1/models](https://api.createya.ai/v1/models)."
+            echo "> Последнее обновление: $DATE"
+            echo ""
+            echo "Полный каталог с интерактивными примерами и подробным описанием — на сайте: [**createya.ai/knowledge**](https://createya.ai/knowledge)."
+            echo ""
+            echo "---"
+            echo ""
+            echo "## Доступные модели"
+            echo ""
+            echo "| Family slug | Output | Modes |"
+            echo "|---|---|---|"
+            jq -r '.[] | select(.output_type == "image") | "| `\(.family // .id)` | image | \(.modes // [.endpoint] | join(", ")) |"' /tmp/models.json | sort -u
+          } > docs/models-image.md
+
+          # Video models
+          {
+            echo "# 🎬 Video-модели Createya"
+            echo ""
+            echo "> Этот файл синхронизируется автоматически раз в неделю с [createya.ai/v1/models](https://api.createya.ai/v1/models)."
+            echo "> Последнее обновление: $DATE"
+            echo ""
+            echo "Полный каталог с интерактивными примерами и подробным описанием — на сайте: [**createya.ai/knowledge**](https://createya.ai/knowledge)."
+            echo ""
+            echo "---"
+            echo ""
+            echo "## Доступные модели"
+            echo ""
+            echo "| Family slug | Output | Modes |"
+            echo "|---|---|---|"
+            jq -r '.[] | select(.output_type == "video") | "| `\(.family // .id)` | video | \(.modes // [.endpoint] | join(", ")) |"' /tmp/models.json | sort -u
+          } > docs/models-video.md
+
+      - name: Commit if changed
+        if: steps.fetch.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "createya-mcp-sync[bot]"
+          git config user.email "support@createya.ai"
+          if git diff --quiet docs/models-image.md docs/models-video.md; then
+            echo "Каталог не изменился, коммит не нужен."
+          else
+            git add docs/models-image.md docs/models-video.md
+            git commit -m "chore(sync): обновлён каталог моделей $(date +%Y-%m-%d)"
+            git push
+          fi
