@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Вопрос по API / поддержка пользователя
+    url: mailto:support@createya.ai
+    about: Проблемы с твоим аккаунтом, ключом, биллингом, моделями — пиши на support, не сюда. Issues только про этот репо.
+  - name: 🔐 Уязвимость безопасности
+    url: mailto:security@createya.ai
+    about: Не открывай публичный issue для security findings. См. SECURITY.md.
+  - name: 🌐 Сайт Createya
+    url: https://createya.ai
+    about: Регистрация, тарифы, каталог моделей, веб-интерфейс.
+  - name: 🤖 Telegram-бот для генерации
+    url: https://t.me/createya_bot
+    about: Генерация без кода прямо в Telegram.
