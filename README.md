@@ -224,6 +224,11 @@ claude mcp add createya "https://api.createya.ai/mcp" \
 - [`examples/05-rest-curl.md`](examples/05-rest-curl.md) — curl (sync + async + upload)
 - [`examples/06-rest-python.md`](examples/06-rest-python.md) — Python client
 - [`examples/07-rest-nodejs.md`](examples/07-rest-nodejs.md) — TypeScript / Node.js / Express / Next.js
+- [`examples/08-rest-go.md`](examples/08-rest-go.md) — Go (stdlib, без зависимостей)
+- [`examples/09-rest-php.md`](examples/09-rest-php.md) — PHP / Laravel / Symfony
+- [`examples/03-async-polling.md`](examples/03-async-polling.md) — async-задачи (видео) с exponential backoff
+- [`examples/04-upload-image.md`](examples/04-upload-image.md) — загрузка картинки для image-to-image
+- [`examples/10-error-handling.md`](examples/10-error-handling.md) — обработка всех ошибок, retry-pattern
 
 ---
 
@@ -390,6 +395,16 @@ Createya работает с компаниями по договору и бе�
 - 🤖 **Telegram-бот** (для генерации напрямую без кода): [@createya_bot](https://t.me/createya_bot)
 - 📧 **Поддержка:** [support@createya.ai](mailto:support@createya.ai)
 - 💼 **Партнёрство / Амбассадорам:** [createya.ai/ambassador](https://createya.ai/ambassador)
+
+---
+
+## 🤝 Контрибьютим
+
+PRs welcome — новый MCP-клиент конфиг, новый язык в примерах, фикс опечатки. См. [CONTRIBUTING.md](CONTRIBUTING.md) для guideline'ов.
+
+Нашёл баг или хочешь модель — открой [issue](https://github.com/Createya-ai/createya-mcp/issues/new/choose).
+
+Уязвимость? Не открывай публичный issue — пиши на [security@createya.ai](mailto:security@createya.ai). См. [SECURITY.md](SECURITY.md).
 
 ---
 
