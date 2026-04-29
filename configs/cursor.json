@@ -1,0 +1,12 @@
+{
+  "_comment": "Cursor MCP config. Place at: ~/.cursor/mcp.json (global) or .cursor/mcp.json (project). Restart Cursor after adding.",
+
+  "mcpServers": {
+    "createya": {
+      "url": "https://api.createya.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer crya_sk_live_REPLACE_WITH_YOUR_KEY"
+      }
+    }
+  }
+}

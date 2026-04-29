@@ -1,0 +1,13 @@
+{
+  "_comment": "OpenCode MCP config. Path: ~/.opencode/config.json (или там где OpenCode хранит mcp_servers). Restart OpenCode после добавления.",
+
+  "mcp_servers": {
+    "createya": {
+      "type": "http",
+      "url": "https://api.createya.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer crya_sk_live_REPLACE_WITH_YOUR_KEY"
+      }
+    }
+  }
+}

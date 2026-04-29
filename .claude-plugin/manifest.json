@@ -1,0 +1,55 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin-manifest.schema.json",
+  "name": "createya-mcp",
+  "version": "1.0.0",
+  "description": "Createya MCP — 100+ AI-моделей (Flux, Kling, Runway, Suno, GPT, Claude) через один MCP-сервер из России. Без VPN. Оплата в рублях. 100 кредитов бесплатно.",
+  "author": {
+    "name": "Createya",
+    "url": "https://createya.ai",
+    "email": "support@createya.ai"
+  },
+  "homepage": "https://github.com/Createya-ai/createya-mcp",
+  "repository": "https://github.com/Createya-ai/createya-mcp",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "claude",
+    "claude-code",
+    "cursor",
+    "cline",
+    "windsurf",
+    "codex",
+    "opencode",
+    "ai-image-generation",
+    "ai-video-generation",
+    "ai-music-generation",
+    "flux",
+    "kling",
+    "runway",
+    "suno",
+    "midjourney",
+    "elevenlabs",
+    "russia",
+    "russian",
+    "rubles",
+    "no-vpn"
+  ],
+  "skills": [
+    {
+      "name": "createya",
+      "path": "skills/createya/SKILL.md"
+    }
+  ],
+  "mcpServers": {
+    "createya": {
+      "type": "http",
+      "url": "https://api.createya.ai/mcp",
+      "auth": {
+        "type": "bearer",
+        "header": "Authorization",
+        "instructions": "Получите API-ключ на https://createya.ai/settings/api-keys (формат crya_sk_live_*)"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "_comment": "Cline (VS Code extension) MCP config. Add to settings.json under cline.mcpServers. Restart VS Code after adding.",
+
+  "cline.mcpServers": {
+    "createya": {
+      "type": "streamableHttp",
+      "url": "https://api.createya.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer crya_sk_live_REPLACE_WITH_YOUR_KEY"
+      },
+      "disabled": false
+    }
+  }
+}

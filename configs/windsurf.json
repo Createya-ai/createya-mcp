@@ -1,0 +1,12 @@
+{
+  "_comment": "Windsurf MCP config. Path: ~/.codeium/windsurf/mcp_config.json. Restart Windsurf after adding.",
+
+  "mcpServers": {
+    "createya": {
+      "serverUrl": "https://api.createya.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer crya_sk_live_REPLACE_WITH_YOUR_KEY"
+      }
+    }
+  }
+}

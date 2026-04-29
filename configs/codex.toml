@@ -1,0 +1,10 @@
+# Codex CLI MCP config
+# Path: ~/.codex/config.toml
+# After editing — перезапусти codex.
+
+[mcp_servers.createya]
+type = "http"
+url = "https://api.createya.ai/mcp"
+
+[mcp_servers.createya.headers]
+Authorization = "Bearer crya_sk_live_REPLACE_WITH_YOUR_KEY"
