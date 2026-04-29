@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Createya-ai/createya-mcp",
+  "title": "Createya — AI Image & Video Generation",
+  "description": "Generate images and videos via 100+ AI models (FLUX, Sora, Veo, Kling, Runway, Higgsfield, Seedance, Suno) through a single MCP server. OAuth 2.1 for Claude Desktop/claude.ai (no key needed). Bearer token for Cursor, Cline, Windsurf, Codex and other clients. No VPN required. Ruble billing. 100 free credits.",
+  "repository": {
+    "url": "https://github.com/Createya-ai/createya-mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.createya.ai/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Your Createya API key: Bearer crya_sk_live_... — required for Cursor, Cline, Windsurf, Codex. Skip if using OAuth via Claude Desktop.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
