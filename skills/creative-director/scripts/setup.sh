@@ -15,7 +15,6 @@
 set -euo pipefail
 
 PROJECT_ROOT="$(pwd)"
-SKILL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
 echo "════════════════════════════════════════════════════════════"
 echo "║  Creative Director — workspace setup                       ║"
