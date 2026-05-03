@@ -21,7 +21,7 @@ echo ""
 command -v git >/dev/null 2>&1 || { echo "✗ Нужен git"; exit 1; }
 
 TEMP_DIR=$(mktemp -d)
-trap "rm -rf ${TEMP_DIR}" EXIT
+trap 'rm -rf ${TEMP_DIR}' EXIT
 
 echo "↓ Клонирую createya-mcp (${REPO_TAG})..."
 git clone --depth 1 --branch "${REPO_TAG}" "${REPO_URL}" "${TEMP_DIR}/createya-mcp" 2>/dev/null
