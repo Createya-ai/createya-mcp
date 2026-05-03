@@ -1,8 +1,8 @@
 {
   "$schema": "https://anthropic.com/claude-code/plugin-manifest.schema.json",
   "name": "createya-mcp",
-  "version": "1.0.0",
-  "description": "Createya MCP — генерация изображений и видео через один MCP-сервер. FLUX, Kling, Runway, Sora 2, Veo 3.1, Midjourney, Higgsfield, Seedance и др. Без VPN. Оплата в рублях. 100 кредитов бесплатно.",
+  "version": "1.1.0",
+  "description": "Createya MCP + Creative Director skill — генерация изображений и видео через один MCP-сервер плюс высокоуровневый AI-режиссёр для фотосессий, lookbook, UGC-видео, character sheets. FLUX, Kling, Runway, Sora 2, Veo 3.1, Midjourney, Higgsfield, Seedance. Локальный workspace, drag-drop assets, библиотека пресетов. Без VPN. Оплата в рублях.",
   "author": {
     "name": "Createya",
     "url": "https://createya.ai",
@@ -38,6 +38,10 @@
     {
       "name": "createya",
       "path": "skills/createya/SKILL.md"
+    },
+    {
+      "name": "creative-director",
+      "path": "skills/creative-director/SKILL.md"
     }
   ],
   "mcpServers": {

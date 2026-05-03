@@ -1,0 +1,51 @@
+---
+description: "Rules for using Createya AI media generation via MCP"
+globs: ["**/*"]
+alwaysApply: false
+---
+
+# Createya Creative Director
+
+When the user asks to generate images, videos, audio, plan a photoshoot, or create UGC content:
+
+## Workflow
+
+1. **Brief** — if incomplete, ask: subject, style, platform, target format
+2. **Guide** — call `get_model_guide(slug)` before every `run_model` — this is the primary source for prompt structure and anti-patterns
+3. **Etalon** — generate one reference frame with locked composition (250+ word English prompt)
+4. **Approval gate** — show result, wait for "ок" / "да" / "good" / any approval signal
+5. **Variations** — image-to-image from the approved etalon
+
+## Key Rules
+
+- Credit estimate before any model costing >50 credits
+- UGC content: add imperfection block (grain, off-center framing, handheld aesthetic) + skin realism (visible pores, NO acne)
+- Two-step video: approved still → animate with video model
+- After each generation: visual QA (sharp, correct subject/composition/lighting), max 2 retries with refined prompt
+
+## Available MCP Tools
+
+- `list_models` — available models with prompt style hints
+- `get_model_guide` — full prompt guide: skeleton, anti-patterns, examples
+- `run_model` — generate image or video (sync or async)
+- `get_run_status` — poll async generation every 30s
+- `request_upload_url` — presigned PUT URL for reference upload (24h CDN, 50MB max)
+
+## REST Fallback (if MCP unavailable)
+
+```bash
+# List models
+curl -H "Authorization: Bearer $CREATEYA_API_KEY" https://api.createya.ai/v1/models
+
+# Get prompt guide
+curl -H "Authorization: Bearer $CREATEYA_API_KEY" \
+  https://api.createya.ai/v1/models/nano-banana-pro/prompting-guide
+
+# Generate
+curl -X POST -H "Authorization: Bearer $CREATEYA_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"nano-banana-pro","prompt":"...","parameters":{}}' \
+  https://api.createya.ai/v1/generate
+```
+
+Full skill reference: https://github.com/Createya-ai/createya-mcp/blob/main/skills/creative-director/SKILL.md

@@ -1,0 +1,109 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate manifest, configs, scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate plugin manifest
+        run: |
+          jq empty .claude-plugin/manifest.json
+          jq -e '.name and .version and .skills and .mcpServers' .claude-plugin/manifest.json > /dev/null
+
+      - name: Validate MCP server.json
+        run: |
+          jq empty server.json
+          jq -e '.name and .remotes' server.json > /dev/null
+
+      - name: Validate per-client configs
+        run: |
+          for f in configs/*.json; do
+            echo "Validating $f"
+            jq empty "$f"
+          done
+
+      - name: ShellCheck on bash scripts
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: ./skills/creative-director/scripts
+          severity: warning
+
+      - name: ShellCheck on root install.sh
+        uses: ludeeus/action-shellcheck@master
+        with:
+          additional_files: install.sh
+          severity: warning
+
+      - name: Verify no API keys committed
+        run: |
+          # Fail if any file contains real-looking crya_sk_live_ keys
+          if grep -rE 'crya_sk_(live|test)_[a-f0-9]{32}' \
+             --include='*.md' --include='*.json' --include='*.sh' \
+             . 2>/dev/null; then
+            echo "::error::Found possible API key — keys must NEVER be committed"
+            exit 1
+          fi
+
+      - name: Verify all skill files exist
+        run: |
+          # Iterate skills[] from manifest and ensure each path exists
+          for path in $(jq -r '.skills[].path' .claude-plugin/manifest.json); do
+            if [[ ! -f "$path" ]]; then
+              echo "::error::Skill file missing: $path"
+              exit 1
+            fi
+          done
+
+  markdown:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DavidAnson/markdownlint-cli2-action@v15
+        with:
+          globs: |
+            *.md
+            skills/**/*.md
+            docs/**/*.md
+            examples/**/*.md
+        continue-on-error: true # Lint failures are warnings, not blockers — некоторые скилл-файлы намеренно длинные / не следуют классическим markdown правилам
+
+  presets:
+    name: Validate presets frontmatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install yq
+        run: sudo snap install yq || (sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 && sudo chmod +x /usr/local/bin/yq)
+      - name: Verify each preset has required frontmatter
+        run: |
+          fail=0
+          for f in skills/creative-director/presets/*/*.md; do
+            base=$(basename "$f")
+            # Skip INDEX files and READMEs
+            [[ "$base" == "INDEX.md" || "$base" == "README.md" ]] && continue
+
+            # Extract frontmatter (between --- markers)
+            fm=$(awk '/^---$/{c++; next} c==1' "$f")
+            if [[ -z "$fm" ]]; then
+              echo "::error file=$f::Missing YAML frontmatter"
+              fail=1; continue
+            fi
+
+            # Required fields
+            for field in name type display_name tags fits_categories inject_text; do
+              if ! echo "$fm" | grep -qE "^${field}:"; then
+                echo "::error file=$f::Missing required frontmatter field: $field"
+                fail=1
+              fi
+            done
+          done
+          exit $fail
