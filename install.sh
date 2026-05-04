@@ -2,7 +2,7 @@
 # Createya — one-command installer: skills + MCP server
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/Createya-ai/createya-mcp/main/install.sh | bash -s -- crya_sk_live_YOUR_KEY
+#   curl -fsSL https://api.createya.ai/install | bash -s -- crya_sk_live_YOUR_KEY
 #
 # The API key argument is optional — if omitted, MCP is registered without auth
 # (useful when key is already set in env or when using OAuth via Claude Desktop).
