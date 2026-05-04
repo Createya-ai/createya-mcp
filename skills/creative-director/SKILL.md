@@ -520,11 +520,14 @@ AskUserQuestion({
 
 ```
 1. Один эталонный кадр (locked composition по категории, LLM заполняет subject/одежду/товар)
-2. Скачать локально → Read → vision QA (hands, faces, merged objects)
+2. bash ./scripts/download.sh <output_url>   ← ВСЕГДА, никакого curl в /tmp
+   Read скачанного файла → vision QA (hands, faces, merged objects)
 3. Если QA ОК — показать юзеру (открыть через bash open) → ждать approval
 4. Только после approval — N вариаций с start_image_url=<approved etalon CDN>
-5. Каждая variation: download → Read → QA
+5. Каждая variation: bash ./scripts/download.sh <output_url> → Read → QA
 ```
+
+**Куда download.sh кладёт файл:** всегда в `creative/sessions/<текущий-slug>/results/`. Скрипт сам определяет текущую сессию по последней папке в `creative/sessions/`. Если нужен явный путь — передай вторым аргументом: `bash ./scripts/download.sh <url> creative/sessions/2026-05-04-bomma-hoodie/results/shot-01.jpg`. После download — сразу `Read <путь>` для vision QA.
 
 **Запрещено** между вариациями менять: одежду, внешность модели, основной субъект.
 **Разрешено** менять: ракурс, позу, кадрирование, объектив, локацию (если категория allows), выражение, момент.
@@ -591,10 +594,13 @@ Two-step при image-to-video:
 1. Создай `creative/sessions/<YYYY-MM-DD>-<slug>/` где slug — короткое имя проекта
 2. `brief.json` — структурированный бриф (категория, требования, выбранные пресеты, ссылки на assets)
 3. `session.md` — человекочитаемый log что делал
-4. Все intermediate файлы (etalon, variations, results) в этой папке
+4. Все скачанные результаты — **только в `creative/sessions/<slug>/results/`**, никогда в `/tmp` или `~/Downloads`
+   - Эталон: `results/etalon.jpg`
+   - Вариации: `results/shot-01.jpg`, `results/shot-02.jpg`, ...
+   - Используй `bash ./scripts/download.sh <url>` — он сам кладёт в последнюю сессию
 5. В конце сессии — `bash ./scripts/preview-grid.sh` → открой grid юзеру
 
-Между сессиями state переживает. Юзер может через час сказать "продолжаем yellow-hoodie session" — найди по `creative/sessions/`, прочитай `session.md`, продолжай.
+**Продолжение сессии:** юзер говорит "продолжаем yellow-hoodie session" — найди папку в `creative/sessions/`, прочитай `session.md`, все `results/*.jpg`, продолжай с того места.
 
 ## Library
 
