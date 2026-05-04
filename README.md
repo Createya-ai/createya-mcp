@@ -5,7 +5,7 @@
 # Createya MCP & API
 
 ### Мир нейросетей без границ.
-#### Через MCP или REST. Без VPN. Оплата в рублях.
+#### Через MCP или REST. 100+ моделей. Один ключ.
 
 [![MCP](https://img.shields.io/badge/MCP-2025--06--18-7C3AED?style=flat-square)](https://modelcontextprotocol.io/)
 [![REST](https://img.shields.io/badge/REST-OpenAPI%203.1-3B82F6?style=flat-square)](https://api.createya.ai/v1/openapi.json)
@@ -17,7 +17,7 @@
 
 ---
 
-**Подключи нейросети Createya к своему AI-агенту через MCP или к своему коду через REST. Без VPN. Оплата в рублях. 100 кредитов бесплатно на старте.**
+**Подключи нейросети Createya к своему AI-агенту через MCP или к своему коду через REST. 100 кредитов бесплатно на старте.**
 
 **Два пути на выбор:**
 - 🤖 **MCP** — для AI-агентов (Claude, Cursor, Cline, Windsurf, Codex, OpenCode). Один URL, OAuth или Bearer — и агент сам видит каталог моделей.
@@ -55,11 +55,14 @@ Createya решает 4 типичные проблемы:
 
 **3. Дальше — выбираешь свой путь:**
 
-### 🤖 Если ты строишь AI-агента → MCP
+### 🤖 Если ты строишь AI-агента → одна команда
+
+```bash
+curl -fsSL https://api.createya.ai/install | bash -s -- crya_sk_live_YOUR_KEY
 ```
-Подключи https://api.createya.ai/mcp к Claude / Cursor / Cline / Windsurf
-В чате: «Сгенерируй картинку через Createya — кот на луне»
-```
+
+Ставит MCP-сервер + скиллы за один запуск. Поддерживает Claude Code, Cursor, Codex, OpenClaw.
+
 [→ Инструкции для всех клиентов](#%EF%B8%8F-подключение-выберите-свой-инструмент)
 
 ### 💻 Если ты пишешь свой код → REST
@@ -106,13 +109,20 @@ curl -X POST https://api.createya.ai/v1/run \
 
 ### B. Claude Code (CLI)
 
+**Один скрипт — ставит MCP и скиллы сразу:**
+
+```bash
+curl -fsSL https://api.createya.ai/install | bash -s -- crya_sk_live_YOUR_KEY
+```
+
+Или только MCP, без скиллов:
+
 ```bash
 claude mcp add createya "https://api.createya.ai/mcp" \
   --transport http \
-  --header "Authorization: Bearer crya_sk_live_..."
+  --header "Authorization: Bearer crya_sk_live_..." \
+  --scope user
 ```
-
-> ⚠ Заголовок передаётся через `:` (двоеточие + пробел), **не через** `=`. Это самая частая ошибка.
 
 ### C. Cursor
 
